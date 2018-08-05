@@ -1,15 +1,34 @@
-## Put comments here that give an overall description of what your
-## functions do
+## functions create a super matrix that can store its content and also its inverse
 
-## Write a short comment describing this function
+## Function creates a matrix defined by user defined data x and its column and row parameters
+## also stores the inverse of the matrix in the inv variable
 
 makeCacheMatrix <- function(x = matrix()) {
-
+  inv <- NULL
+  set <- function(y) {
+    x <<- y
+    inv <<- NULL
+  }
+  get <- function() x
+  setInverse <- function(inverse) inv <<- inverse
+  getInverse <- function() inv
+  list(set = set,
+       get = get,
+       setInverse = setInverse,
+       getInverse = getInverse)
 }
 
-
-## Write a short comment describing this function
+## function obtains inverse of matrix x; also checks if determinant of x is 0 and if it is it just returns x rather than its inverse
 
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+        
+    inv <- x$getinverse()
+    if(det(inv)=0) {
+      message("getting cached data")
+      return(inv)
+    }
+    data <- x$get()
+    inv <- solve(data, ...)
+    x$getinverse(inv)
+    inv
 }
